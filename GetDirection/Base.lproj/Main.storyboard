@@ -66,6 +66,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="getDirectionButton" destination="km4-h1-FVa" id="th1-BU-G0A"/>
                         <outlet property="latitudeField" destination="u4i-i4-k9y" id="IZO-Td-Xr6"/>
                         <outlet property="longitudeField" destination="kqF-fZ-zWB" id="KtB-Yn-lRy"/>
                     </connections>
