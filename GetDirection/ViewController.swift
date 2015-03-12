@@ -26,13 +26,20 @@ extension ViewController {
         
         if CMMapLauncher.isMapAppInstalled(.GoogleMaps) {
             var alert = UIAlertController(title: "Get Direction", message: "from following apps", preferredStyle: .ActionSheet)
+            alert.addAction(UIAlertAction(title: "Apple Maps", style: .Default, handler: { (action: UIAlertAction!) -> Void in
+                
+                self.getDirectionByAppleMaps(chooseLocation)
+            }))
+            alert.addAction(UIAlertAction(title: "Google Maps", style: .Default, handler: { (action: UIAlertAction!) -> Void in
+                self.getDirectionByGoogleMap(chooseLocation)
+            }))
         } else {
             getDirectionByAppleMaps(chooseLocation)
         }
     }
     
     private func getDirectionByAppleMaps(coordinate: CLLocationCoordinate2D) {
-    
+        
     }
     
     private func getDirectionByGoogleMap(coodinate: CLLocationCoordinate2D) {
