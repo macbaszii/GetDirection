@@ -52,11 +52,17 @@ extension ViewController {
     }
     
     private func getDirectionByAppleMaps(coordinate: CLLocationCoordinate2D) {
-        
+        getDirectionBy(.AppleMaps, coordinate: coordinate)
     }
     
     private func getDirectionByGoogleMap(coodinate: CLLocationCoordinate2D) {
-        
+        getDirectionBy(.GoogleMaps, coordinate: coodinate)
+    }
+    
+    private func getDirectionBy(app: CMMapApp, coordinate: CLLocationCoordinate2D) {
+        if let _ = currentCoordinate {
+            CMMapLauncher.launchMapApp(app, forDirectionsTo: CMMapPoint(name: "Destination", coordinate: coordinate))
+        }
     }
 }
 
