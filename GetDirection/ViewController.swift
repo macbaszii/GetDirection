@@ -7,19 +7,42 @@
 //
 
 import UIKit
+import CMMapLauncher;
+import CoreLocation;
 
 class ViewController: UIViewController {
 
+    @IBOutlet var latitudeField: UITextField!
+    @IBOutlet var longitudeField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
+}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+extension ViewController {
+    @IBAction func getDirection() {
+        var chooseLocation = CLLocationCoordinate2DMake(latitudeField.text.toDouble() ?? 0.0, longitudeField.text.toDouble() ?? 0.0)
+        
+        if CMMapLauncher.isMapAppInstalled(.GoogleMaps) {
+            var alert = UIAlertController(title: "Get Direction", message: "from following apps", preferredStyle: .ActionSheet)
+        } else {
+            getDirectionByAppleMaps(chooseLocation)
+        }
     }
+    
+    private func getDirectionByAppleMaps(coordinate: CLLocationCoordinate2D) {
+    
+    }
+    
+    private func getDirectionByGoogleMap(coodinate: CLLocationCoordinate2D) {
+        
+    }
+}
 
-
+extension String {
+    func toDouble() -> Double? {
+        return NSNumberFormatter().numberFromString(self)?.doubleValue
+    }
 }
 

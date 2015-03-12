@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="GetDirection" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -15,8 +16,59 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qR-bS-yRh">
+                                <rect key="frame" x="16" y="113" width="63" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRu-GJ-PZt">
+                                <rect key="frame" x="16" y="153" width="77" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u4i-i4-k9y">
+                                <rect key="frame" x="87" y="110" width="497" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kqF-fZ-zWB">
+                                <rect key="frame" x="101" y="150" width="483" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="km4-h1-FVa">
+                                <rect key="frame" x="228" y="210" width="145" height="30"/>
+                                <state key="normal" title="Get Direction to Here">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getDirection" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Qed-R0-bAP"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="u4i-i4-k9y" firstAttribute="leading" secondItem="4qR-bS-yRh" secondAttribute="trailing" constant="8" symbolic="YES" id="C7q-mV-3lI"/>
+                            <constraint firstItem="bRu-GJ-PZt" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="DTe-ag-piv"/>
+                            <constraint firstItem="4qR-bS-yRh" firstAttribute="baseline" secondItem="u4i-i4-k9y" secondAttribute="baseline" id="Edt-ux-3MF"/>
+                            <constraint firstItem="bRu-GJ-PZt" firstAttribute="baseline" secondItem="kqF-fZ-zWB" secondAttribute="baseline" id="J6u-95-kgk"/>
+                            <constraint firstItem="u4i-i4-k9y" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="Mf1-m4-aAr"/>
+                            <constraint firstItem="4qR-bS-yRh" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="93" id="TyI-QG-GmT"/>
+                            <constraint firstItem="bRu-GJ-PZt" firstAttribute="top" secondItem="4qR-bS-yRh" secondAttribute="bottom" constant="19" id="WPj-MB-Gga"/>
+                            <constraint firstItem="kqF-fZ-zWB" firstAttribute="leading" secondItem="bRu-GJ-PZt" secondAttribute="trailing" constant="8" symbolic="YES" id="XTm-eS-XO5"/>
+                            <constraint firstItem="kqF-fZ-zWB" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="Ybw-yn-k5m"/>
+                            <constraint firstAttribute="centerX" secondItem="km4-h1-FVa" secondAttribute="centerX" id="f5q-RH-GSG"/>
+                            <constraint firstAttribute="centerY" secondItem="km4-h1-FVa" secondAttribute="centerY" constant="75" id="fMY-8T-77B"/>
+                            <constraint firstItem="4qR-bS-yRh" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="s9P-1F-FYS"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="latitudeField" destination="u4i-i4-k9y" id="IZO-Td-Xr6"/>
+                        <outlet property="longitudeField" destination="kqF-fZ-zWB" id="KtB-Yn-lRy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
