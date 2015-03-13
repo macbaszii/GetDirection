@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import CMMapLauncher;
-import CoreLocation;
+import CMMapLauncher
+import CoreLocation
+import MapKit
 
 class ViewController: UIViewController {
 
@@ -21,6 +22,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Test with Siam Paragon's Coordinate
+        self.latitudeField.text = "13.746388"
+        self.longitudeField.text = "100.53494"
+        
         getDirectionButton.enabled = false
         setupCoreLocation()
     }
@@ -46,13 +52,17 @@ extension ViewController {
             alert.addAction(UIAlertAction(title: "Google Maps", style: .Default, handler: { (action: UIAlertAction!) -> Void in
                 self.getDirectionByGoogleMap(chooseLocation)
             }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+            
+            presentViewController(alert, animated: true, completion: nil)
         } else {
             getDirectionByAppleMaps(chooseLocation)
         }
     }
     
     private func getDirectionByAppleMaps(coordinate: CLLocationCoordinate2D) {
-        getDirectionBy(.AppleMaps, coordinate: coordinate)
+        var url = String(format: "http://maps.apple.com/?daddr=%f,+%f&saddr=%f,+%f", currentCoordinate!.latitude, currentCoordinate!.longitude, coordinate.latitude, coordinate.longitude)
+        UIApplication.sharedApplication().openURL(NSURL(string: url)!)
     }
     
     private func getDirectionByGoogleMap(coodinate: CLLocationCoordinate2D) {
@@ -61,7 +71,7 @@ extension ViewController {
     
     private func getDirectionBy(app: CMMapApp, coordinate: CLLocationCoordinate2D) {
         if let _ = currentCoordinate {
-            CMMapLauncher.launchMapApp(app, forDirectionsTo: CMMapPoint(name: "Destination", coordinate: coordinate))
+            CMMapLauncher.launchMapApp(app, forDirectionsTo: CMMapPoint(coordinate: coordinate))
         }
     }
 }
@@ -69,7 +79,7 @@ extension ViewController {
 extension ViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         
-        if status == .Authorized || status == .AuthorizedWhenInUse {
+        if status == .AuthorizedWhenInUse {
             manager.startUpdatingLocation()
         }
     }

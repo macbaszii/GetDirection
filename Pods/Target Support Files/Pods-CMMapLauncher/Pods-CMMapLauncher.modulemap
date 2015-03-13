@@ -1,0 +1,6 @@
+framework module CMMapLauncher {
+  umbrella header "Pods-CMMapLauncher-umbrella.h"
+
+  export *
+  module * { export * }
+}

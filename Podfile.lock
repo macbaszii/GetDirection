@@ -1,0 +1,10 @@
+PODS:
+  - CMMapLauncher (1.1.0)
+
+DEPENDENCIES:
+  - CMMapLauncher
+
+SPEC CHECKSUMS:
+  CMMapLauncher: 4b95899cc39bd14dfa3e8525470e34cb8edbb028
+
+COCOAPODS: 0.36.0.rc.1
