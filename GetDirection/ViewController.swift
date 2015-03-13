@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CMMapLauncher
 import CoreLocation
 import MapKit
 
@@ -41,38 +40,37 @@ extension ViewController {
     }
 
     @IBAction func getDirection() {
-        var chooseLocation = CLLocationCoordinate2DMake(latitudeField.text.toDouble() ?? 0.0, longitudeField.text.toDouble() ?? 0.0)
-        
-        if CMMapLauncher.isMapAppInstalled(.GoogleMaps) {
-            var alert = UIAlertController(title: "Get Direction", message: "from following apps", preferredStyle: .ActionSheet)
-            alert.addAction(UIAlertAction(title: "Apple Maps", style: .Default, handler: { (action: UIAlertAction!) -> Void in
-                
-                self.getDirectionByAppleMaps(chooseLocation)
-            }))
-            alert.addAction(UIAlertAction(title: "Google Maps", style: .Default, handler: { (action: UIAlertAction!) -> Void in
-                self.getDirectionByGoogleMap(chooseLocation)
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        var chosenLocation = CLLocationCoordinate2DMake(latitudeField.text.toDouble() ?? 0.0, longitudeField.text.toDouble() ?? 0.0)
+        var alert = UIAlertController(title: "Get Direction", message: "from following apps", preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title: "Apple Maps", style: .Default, handler: { (action: UIAlertAction!) -> Void in
             
-            presentViewController(alert, animated: true, completion: nil)
-        } else {
-            getDirectionByAppleMaps(chooseLocation)
+            self.getDirectionBy(.AppleMaps, coordinate: chosenLocation)
+        }))
+        alert.addAction(UIAlertAction(title: "Google Maps", style: .Default, handler: { (action: UIAlertAction!) -> Void in
+            
+            if self.isGoogleMapsAppInstalled() {
+                self.getDirectionBy(.GoogleMaps, coordinate: chosenLocation)
+            } else {
+                self.getDirectionBy(.GoogleMapsWebsite, coordinate: chosenLocation)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    private func getDirectionBy(map: AvailableMaps, coordinate: CLLocationCoordinate2D) {
+        if let userCoordinate = currentCoordinate {
+            var url = NSURL(string: String(format: map.urlFormat(), userCoordinate.latitude, userCoordinate.longitude, coordinate.latitude, coordinate.longitude))
+            if let openingURL = url {
+                UIApplication.sharedApplication().openURL(openingURL)
+            }
         }
+        
     }
     
-    private func getDirectionByAppleMaps(coordinate: CLLocationCoordinate2D) {
-        var url = String(format: "http://maps.apple.com/?daddr=%f,+%f&saddr=%f,+%f", currentCoordinate!.latitude, currentCoordinate!.longitude, coordinate.latitude, coordinate.longitude)
-        UIApplication.sharedApplication().openURL(NSURL(string: url)!)
-    }
-    
-    private func getDirectionByGoogleMap(coodinate: CLLocationCoordinate2D) {
-        getDirectionBy(.GoogleMaps, coordinate: coodinate)
-    }
-    
-    private func getDirectionBy(app: CMMapApp, coordinate: CLLocationCoordinate2D) {
-        if let _ = currentCoordinate {
-            CMMapLauncher.launchMapApp(app, forDirectionsTo: CMMapPoint(coordinate: coordinate))
-        }
+    private func isGoogleMapsAppInstalled() -> Bool {
+        return UIApplication.sharedApplication().canOpenURL(NSURL(string: "comgooglemaps://")!)
     }
 }
 
